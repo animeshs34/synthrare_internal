@@ -68,8 +68,8 @@
 - [x] PHASE-7 | Create infrastructure/digitalocean/gpu_droplet_setup.sh | Done: 2026-03-07
 - [x] PHASE-7 | Create infrastructure/digitalocean/spaces_setup.sh | Done: 2026-03-07
 - [x] PHASE-7 | Create infrastructure/scripts/deploy.sh | Done: 2026-03-07
-- [ ] PHASE-7 | Create docs/DEPLOYMENT.md | MED
-- [ ] PHASE-7 | Create docs/API.md | MED
+- [x] PHASE-7 | Create docs/DEPLOYMENT.md | Done: 2026-03-07
+- [x] PHASE-7 | Create docs/API.md | Done: 2026-03-07
 
 ## Phase 8 — Polish
 - [ ] PHASE-8 | Full smoke test: register -> request -> generate -> validate -> download | HIGH
