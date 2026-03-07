@@ -23,21 +23,21 @@
 - [x] PHASE-1 | Write tests for auth endpoints (success, auth failure, invalid input) | Done: 2026-03-07
 
 ## Phase 2 — Catalog
-- [ ] PHASE-2 | Create Dataset SQLAlchemy model | HIGH
-- [ ] PHASE-2 | Create Domain model | HIGH
-- [ ] PHASE-2 | Create catalog router: GET /catalog, GET /catalog/{id}, POST /catalog (admin) | HIGH
-- [ ] PHASE-2 | Create DO Spaces / local storage service | HIGH
-- [ ] PHASE-2 | Create download endpoint with credit deduction | HIGH
-- [ ] PHASE-2 | Seed catalog with sample datasets | MED
-- [ ] PHASE-2 | Write tests for catalog endpoints | HIGH
+- [x] PHASE-2 | Create Dataset SQLAlchemy model | Done: 2026-03-07
+- [x] PHASE-2 | Create Domain model | Done: 2026-03-07
+- [x] PHASE-2 | Create catalog router: GET /catalog, GET /catalog/{id}, POST /catalog (admin) | Done: 2026-03-07
+- [x] PHASE-2 | Create DO Spaces / local storage service | Done: 2026-03-07
+- [x] PHASE-2 | Create download endpoint with credit deduction | Done: 2026-03-07
+- [x] PHASE-2 | Seed catalog with sample datasets | Done: 2026-03-07
+- [x] PHASE-2 | Write tests for catalog endpoints | Done: 2026-03-07
 
 ## Phase 3 — Jobs
-- [ ] PHASE-3 | Create Job SQLAlchemy model | HIGH
-- [ ] PHASE-3 | Create jobs router: POST /jobs, GET /jobs/{id}, GET /jobs (user) | HIGH
-- [ ] PHASE-3 | Create RQ generation worker | HIGH
-- [ ] PHASE-3 | Create job request Pydantic schemas | HIGH
-- [ ] PHASE-3 | Wire RQ queue to worker on redis | HIGH
-- [ ] PHASE-3 | Write tests for jobs endpoints | HIGH
+- [x] PHASE-3 | Create Job SQLAlchemy model | Done: 2026-03-07
+- [x] PHASE-3 | Create jobs router: POST /jobs, GET /jobs/{id}, GET /jobs (user) | Done: 2026-03-07
+- [x] PHASE-3 | Create RQ generation worker | Done: 2026-03-07
+- [x] PHASE-3 | Create job request Pydantic schemas | Done: 2026-03-07
+- [x] PHASE-3 | Wire RQ queue to worker on redis | Done: 2026-03-07
+- [x] PHASE-3 | Write tests for jobs endpoints | Done: 2026-03-07
 
 ## Phase 4 — Validation
 - [ ] PHASE-4 | Create ValidationReport SQLAlchemy model | HIGH
