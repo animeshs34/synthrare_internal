@@ -40,28 +40,28 @@
 - [x] PHASE-3 | Write tests for jobs endpoints | Done: 2026-03-07
 
 ## Phase 4 — Validation
-- [ ] PHASE-4 | Create ValidationReport SQLAlchemy model | HIGH
-- [ ] PHASE-4 | Create fidelity scoring service (statistical metrics) | HIGH
-- [ ] PHASE-4 | Create validation router: GET /jobs/{id}/report | HIGH
-- [ ] PHASE-4 | Generate charts from fidelity scores | MED
-- [ ] PHASE-4 | Write tests for validation | HIGH
+- [x] PHASE-4 | Create ValidationReport SQLAlchemy model | Done: 2026-03-07
+- [x] PHASE-4 | Create fidelity scoring service (statistical metrics) | Done: 2026-03-07
+- [x] PHASE-4 | Create validation router: GET /jobs/{id}/report | Done: 2026-03-07
+- [x] PHASE-4 | Generate charts from fidelity scores | Done: 2026-03-07
+- [x] PHASE-4 | Write tests for validation | Done: 2026-03-07
 
 ## Phase 5 — ML Models
-- [ ] PHASE-5 | Create ml/notebooks/finance_colab.ipynb | HIGH
-- [ ] PHASE-5 | Create ml/notebooks/aviation_colab.ipynb | HIGH
-- [ ] PHASE-5 | Create ml/notebooks/healthcare_colab.ipynb | HIGH
-- [ ] PHASE-5 | Create ml/inference/generator.py | HIGH
-- [ ] PHASE-5 | Create ml/inference/validator.py | HIGH
-- [ ] PHASE-5 | Create ml/training/finance_trainer.py | MED
-- [ ] PHASE-5 | Create ml/training/aviation_trainer.py | MED
-- [ ] PHASE-5 | Create ml/training/healthcare_trainer.py | MED
+- [x] PHASE-5 | Create ml/notebooks/finance_colab.ipynb | Done: 2026-03-07
+- [x] PHASE-5 | Create ml/notebooks/aviation_colab.ipynb | Done: 2026-03-07
+- [x] PHASE-5 | Create ml/notebooks/healthcare_colab.ipynb | Done: 2026-03-07
+- [x] PHASE-5 | Create ml/inference/generator.py | Done: 2026-03-07
+- [x] PHASE-5 | Create ml/inference/validator.py | Done: 2026-03-07
+- [x] PHASE-5 | Create ml/training/finance_trainer.py | Done: 2026-03-07
+- [x] PHASE-5 | Create ml/training/aviation_trainer.py | Done: 2026-03-07
+- [x] PHASE-5 | Create ml/training/healthcare_trainer.py | Done: 2026-03-07
 
 ## Phase 6 — Public API
-- [ ] PHASE-6 | Create ApiKey SQLAlchemy model | HIGH
-- [ ] PHASE-6 | Create api_keys router: POST /api-keys, DELETE /api-keys/{id} | HIGH
-- [ ] PHASE-6 | Create /api/v1/* proxy endpoints | HIGH
-- [ ] PHASE-6 | Add rate limiting with slowapi | HIGH
-- [ ] PHASE-6 | Write tests for public API | HIGH
+- [x] PHASE-6 | Create ApiKey SQLAlchemy model | Done: 2026-03-07
+- [x] PHASE-6 | Create api_keys router: POST /api-keys, DELETE /api-keys/{id} | Done: 2026-03-07
+- [x] PHASE-6 | Create /api/v1/* proxy endpoints | Done: 2026-03-07
+- [x] PHASE-6 | Add rate limiting with slowapi | Done: 2026-03-07
+- [x] PHASE-6 | Write tests for public API | Done: 2026-03-07
 
 ## Phase 7 — DO Deployment
 - [x] PHASE-7 | Create infrastructure/digitalocean/app_spec.yaml | Done: 2026-03-07
