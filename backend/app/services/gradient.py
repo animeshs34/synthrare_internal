@@ -78,7 +78,7 @@ _DEFAULT_DOMAIN = "finance"
 def _call_gradient(messages: list[dict[str, str]], max_tokens: int = 4096) -> str:
     """Call DO Gradient (OpenAI-compatible /chat/completions). Retries up to 3×."""
     endpoint = settings.do_gradient_inference_endpoint.rstrip("/")
-    url = f"{endpoint}/chat/completions"
+    url = f"{endpoint}/api/v1/chat/completions"
     headers = {
         "Authorization": f"Bearer {settings.do_gradient_api_key}",
         "Content-Type": "application/json",
@@ -96,7 +96,20 @@ def _call_gradient(messages: list[dict[str, str]], max_tokens: int = 4096) -> st
                 resp = client.post(url, headers=headers, json=payload)
                 resp.raise_for_status()
                 return resp.json()["choices"][0]["message"]["content"]
-        except (httpx.HTTPStatusError, httpx.RequestError, KeyError, IndexError) as exc:
+        except httpx.HTTPStatusError as exc:
+            # 4xx errors are permanent config problems — don't retry
+            if 400 <= exc.response.status_code < 500:
+                raise RuntimeError(
+                    f"DO Gradient request failed ({exc.response.status_code}): {exc}"
+                ) from exc
+            if attempt == 2:
+                raise RuntimeError(
+                    f"DO Gradient request failed after 3 attempts: {exc}"
+                ) from exc
+            wait = 2 ** attempt
+            log.warning("Gradient attempt %d failed (%s), retrying in %ds", attempt + 1, exc, wait)
+            time.sleep(wait)
+        except (httpx.RequestError, KeyError, IndexError) as exc:
             if attempt == 2:
                 raise RuntimeError(
                     f"DO Gradient request failed after 3 attempts: {exc}"
