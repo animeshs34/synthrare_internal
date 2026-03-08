@@ -12,8 +12,18 @@ SynthRare is deployed on DigitalOcean using:
 | Database | DO Managed PostgreSQL 15 |
 | Cache / Queue | DO Managed Valkey 7 |
 | File Storage | DO Spaces (NYC3) |
-| ML Training | DO GPU Droplet L40S (ephemeral) |
-| Model Serving | DO Gradient Serverless Inference |
+| **Synthetic Data Generation** | **DO Gradient Inference (primary)** |
+| Custom Model Training (optional) | DO GPU Droplet L40S (ephemeral) |
+
+### Generation approach
+
+The worker uses **DO Gradient Inference** (a managed LLM endpoint, OpenAI-compatible) as the primary generation engine. This means:
+
+- No GPU setup required for a standard deployment
+- Generation is available immediately after `doctl apps create`
+- If `DO_GRADIENT_API_KEY` is not set, the worker falls back to fast statistical generation
+
+For maximum fidelity on a specific domain, you can optionally train a CTGAN model on a GPU Droplet and serve it as a custom DO Gradient endpoint. See [DO_GRADIENT.md](DO_GRADIENT.md) for full details.
 
 ---
 
@@ -35,15 +45,28 @@ brew install gh
 
 ## Step 1 — Set secrets
 
-In the DO dashboard → App Platform → your app → Settings → Environment Variables, set all `SECRET` type vars:
+In the DO dashboard → App Platform → your app → Settings → Environment Variables, set the `SECRET` type vars:
 
 ```
-SECRET_KEY          # 32+ char random string: openssl rand -base64 32
-DO_SPACES_KEY       # Spaces access key
-DO_SPACES_SECRET    # Spaces secret
-DO_GRADIENT_API_KEY # Gradient serverless key
-HF_TOKEN            # HuggingFace token (worker only)
+SECRET_KEY                       # 32+ char random string: openssl rand -base64 32
+DO_SPACES_KEY                    # Spaces access key
+DO_SPACES_SECRET                 # Spaces secret
+DO_GRADIENT_API_KEY              # DO personal access token (used for Gradient Inference)
 ```
+
+Set the following as plain (non-secret) env vars on the **worker** service:
+
+```
+DO_GRADIENT_INFERENCE_ENDPOINT=https://inference.do-ai.run/v1
+DO_GRADIENT_MODEL_ID=llama3.1-8b-instruct
+DO_GRADIENT_MAX_DIRECT_ROWS=200
+```
+
+These are already present in `infrastructure/digitalocean/app_spec.yaml` — no manual step needed if you use `deploy.sh`.
+
+> **Note:** `DO_GRADIENT_API_KEY` is your standard DigitalOcean personal access token — the same one used for `doctl`. No separate Gradient subscription is required.
+
+See [docs/DO_GRADIENT.md](DO_GRADIENT.md) for full Gradient configuration options.
 
 ---
 
@@ -122,7 +145,10 @@ Health check passed: {"status": "ok", "env": "production"}
 
 ---
 
-## ML Model Training (GPU Droplet)
+## ML Model Training (GPU Droplet) — Optional
+
+> This section is **optional**. The platform works out of the box using DO Gradient Inference.
+> Train a custom model only if you need higher fidelity on proprietary domain data.
 
 > **Cost warning:** GPU Droplet L40S costs ~$2.99–3.44/GPU/hr. Destroy immediately after training.
 

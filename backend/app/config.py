@@ -28,6 +28,10 @@ class Settings(BaseSettings):
     # DO Gradient Inference
     do_gradient_api_key: str = ""
     do_gradient_inference_endpoint: str = ""
+    # Model ID served on DO Gradient (OpenAI-compatible name, e.g. "llama3.1-8b-instruct")
+    do_gradient_model_id: str = "llama3.1-8b-instruct"
+    # Max rows to generate directly via LLM per job; rows beyond this use calibrated statistical generation
+    do_gradient_max_direct_rows: int = 200
 
     # HuggingFace
     hf_token: str = ""
