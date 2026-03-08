@@ -27,7 +27,7 @@ def get_validation_report(
     if job.status != JobStatus.COMPLETED:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Job is not completed (current status: {job.status})",
+            detail=f"Job is not completed (current status: {job.status.value})",
         )
 
     report = db.query(ValidationReport).filter(ValidationReport.job_id == job_id).first()

@@ -22,7 +22,10 @@ class ValidationReport(Base):
         Integer, ForeignKey("jobs.id", ondelete="CASCADE"), nullable=False, unique=True, index=True
     )
     status: Mapped[ReportStatus] = mapped_column(
-        Enum(ReportStatus), nullable=False, default=ReportStatus.PENDING
+        Enum(ReportStatus, values_callable=lambda obj: [e.value for e in obj],
+             name="reportstatus", create_type=False),
+        nullable=False,
+        default=ReportStatus.PENDING,
     )
     # Overall composite fidelity score: 0.0 – 1.0 (higher is better)
     overall_score: Mapped[float | None] = mapped_column(Float, nullable=True)

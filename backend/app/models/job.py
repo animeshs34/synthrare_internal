@@ -30,7 +30,10 @@ class Job(Base):
     row_count: Mapped[int] = mapped_column(Integer, nullable=False, default=1000)
     parameters: Mapped[str] = mapped_column(Text, nullable=False, default="{}")
     status: Mapped[JobStatus] = mapped_column(
-        Enum(JobStatus), nullable=False, default=JobStatus.PENDING
+        Enum(JobStatus, values_callable=lambda obj: [e.value for e in obj],
+             name="jobstatus", create_type=False),
+        nullable=False,
+        default=JobStatus.PENDING,
     )
     rq_job_id: Mapped[str | None] = mapped_column(String(255), nullable=True)
     result_path: Mapped[str | None] = mapped_column(String(500), nullable=True)

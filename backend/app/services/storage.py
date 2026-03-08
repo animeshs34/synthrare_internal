@@ -55,9 +55,9 @@ def upload_file(file_obj: IO[bytes], storage_path: str, content_type: str = "app
 
 
 def generate_download_url(storage_path: str, expires_in: int = 3600) -> str:
-    """Return a presigned download URL (or local file path in dev)."""
+    """Return a presigned download URL (or absolute local file URL in dev)."""
     if settings.use_local_storage:
-        return f"/catalog/local/{storage_path.lstrip('/')}"
+        return f"{settings.next_public_api_url}/files/{storage_path.lstrip('/')}"
 
     client = _s3_client()
     for attempt in range(_MAX_RETRIES):

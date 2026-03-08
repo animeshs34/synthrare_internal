@@ -5,6 +5,13 @@ function getToken(): string | null {
   return localStorage.getItem('access_token')
 }
 
+export class ApiError extends Error {
+  constructor(public status: number, message: string) {
+    super(message)
+    this.name = 'ApiError'
+  }
+}
+
 async function apiFetch(path: string, options?: RequestInit) {
   const token = getToken()
   const headers: Record<string, string> = {
@@ -16,7 +23,7 @@ async function apiFetch(path: string, options?: RequestInit) {
   const res = await fetch(`${BASE}${path}`, { ...options, headers })
   if (!res.ok) {
     const err = await res.json().catch(() => ({ detail: res.statusText }))
-    throw new Error(err.detail ?? 'Request failed')
+    throw new ApiError(res.status, err.detail ?? 'Request failed')
   }
   if (res.status === 204) return null
   return res.json()
