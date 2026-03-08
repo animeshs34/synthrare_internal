@@ -6,10 +6,15 @@ from app.dependencies import get_current_user, require_admin
 from app.models.dataset import Dataset, DatasetStatus
 from app.models.domain import Domain
 from app.models.user import User
-from app.schemas.catalog import DatasetCreate, DatasetListItem, DatasetResponse
+from app.schemas.catalog import DatasetCreate, DatasetListItem, DatasetResponse, DomainResponse
 from app.services import storage
 
 router = APIRouter(prefix="/catalog", tags=["catalog"])
+
+
+@router.get("/domains", response_model=list[DomainResponse])
+def list_domains(db: Session = Depends(get_db)) -> list[Domain]:
+    return db.query(Domain).order_by(Domain.name).all()
 
 
 @router.get("", response_model=list[DatasetListItem])

@@ -78,3 +78,19 @@ def get_job(
     if not job:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job not found")
     return job
+
+
+@router.get("/{job_id}/result")
+def get_job_result(
+    job_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+) -> dict[str, str]:
+    from app.services.storage import generate_download_url
+    job = db.query(Job).filter(Job.id == job_id, Job.user_id == current_user.id).first()
+    if not job:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job not found")
+    if job.status != JobStatus.COMPLETED or not job.result_path:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Result not ready")
+    url = generate_download_url(job.result_path)
+    return {"download_url": url}
