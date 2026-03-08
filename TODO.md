@@ -72,9 +72,9 @@
 - [x] PHASE-7 | Create docs/API.md | Done: 2026-03-07
 
 ## Phase 8 — Polish
-- [ ] PHASE-8 | Full smoke test: register -> request -> generate -> validate -> download | HIGH
-- [ ] PHASE-8 | All pytest tests passing | HIGH
-- [ ] PHASE-8 | docker-compose up with zero errors | HIGH
-- [ ] PHASE-8 | Production URL live on DO App Platform | HIGH
-- [ ] PHASE-8 | Confirm DO spend under $100 | HIGH
-- [ ] PHASE-8 | DEVLOG.md complete for all sessions | MED
+- [x] PHASE-8 | Full smoke test: register -> request -> generate -> validate -> download | Done: 2026-03-08
+- [x] PHASE-8 | All pytest tests passing | Done: 2026-03-08
+- [x] PHASE-8 | docker-compose up with zero errors | Done: 2026-03-08
+- [ ] PHASE-8 | Production URL live on DO App Platform | MANUAL: run deploy.sh
+- [ ] PHASE-8 | Confirm DO spend under $100 | MANUAL: check DO dashboard
+- [x] PHASE-8 | DEVLOG.md complete for all sessions | Done: 2026-03-08
