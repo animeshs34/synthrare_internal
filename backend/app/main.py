@@ -1,3 +1,5 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
@@ -14,10 +16,26 @@ from app.routers import validation as validation_router
 
 limiter = Limiter(key_func=get_remote_address)
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    from app.database import SessionLocal
+    from app.services.seed import run_seed
+    db = SessionLocal()
+    try:
+        run_seed(db)
+    except Exception:
+        pass
+    finally:
+        db.close()
+    yield
+
+
 app = FastAPI(
     title="SynthRare API",
     description="Synthetic rare data generation platform",
     version="0.1.0",
+    lifespan=lifespan,
 )
 
 app.state.limiter = limiter
