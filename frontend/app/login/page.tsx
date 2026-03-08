@@ -1,12 +1,14 @@
 'use client'
 import { useState, FormEvent } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { api } from '@/lib/api'
 import { saveToken } from '@/lib/auth'
 
 export default function LoginPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const registered = searchParams.get('registered') === '1'
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -31,6 +33,11 @@ export default function LoginPage() {
     <div className="flex items-center justify-center min-h-[calc(100vh-57px)] px-4">
       <div className="w-full max-w-sm">
         <h1 className="text-2xl font-bold text-white mb-6 text-center">Sign in</h1>
+        {registered && (
+          <p className="text-green-400 text-sm bg-green-400/10 rounded-lg px-3 py-2 mb-4 text-center">
+            Account created! Sign in to continue.
+          </p>
+        )}
         <form onSubmit={handleSubmit} className="bg-gray-900 rounded-xl p-6 flex flex-col gap-4 border border-gray-800">
           {error && (
             <p className="text-red-400 text-sm bg-red-400/10 rounded-lg px-3 py-2">{error}</p>

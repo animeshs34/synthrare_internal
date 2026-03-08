@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { api } from '@/lib/api'
+import { api, ApiError } from '@/lib/api'
 import { isLoggedIn } from '@/lib/auth'
 
 type Domain = { id: number; name: string; slug: string; description: string }
@@ -57,8 +57,12 @@ export default function DashboardPage() {
       setJobs(j)
       if (d.length > 0 && domainId === '') setDomainId(d[0].id)
       schedulePoll(j)
-    } catch {
-      // token may be expired
+    } catch (err: unknown) {
+      // Token expired or invalid — redirect to login
+      if (err instanceof ApiError && (err.status === 401 || err.status === 403)) {
+        router.replace('/login')
+        return
+      }
     } finally {
       setLoading(false)
     }

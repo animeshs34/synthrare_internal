@@ -20,7 +20,10 @@ class User(Base):
     hashed_password: Mapped[str] = mapped_column(String(255), nullable=False)
     full_name: Mapped[str] = mapped_column(String(255), nullable=False, default="")
     role: Mapped[UserRole] = mapped_column(
-        Enum(UserRole), nullable=False, default=UserRole.USER
+        Enum(UserRole, values_callable=lambda obj: [e.value for e in obj],
+             name="userrole", create_type=False),
+        nullable=False,
+        default=UserRole.USER,
     )
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
     credits: Mapped[int] = mapped_column(Integer, nullable=False, default=10)
