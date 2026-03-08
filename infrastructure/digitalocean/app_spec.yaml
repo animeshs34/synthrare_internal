@@ -42,6 +42,20 @@ services:
         value: "${synthrare-db.DATABASE_URL}"
       - key: REDIS_URL
         value: "${synthrare-cache.REDIS_URL}"
+      - key: DO_GRADIENT_API_KEY
+        type: SECRET
+      - key: DO_GRADIENT_INFERENCE_ENDPOINT
+        value: "https://inference.do-ai.run/v1"
+      - key: DO_GRADIENT_MODEL_ID
+        value: "llama3.1-8b-instruct"
+      - key: DO_GRADIENT_MAX_DIRECT_ROWS
+        value: "200"
+      - key: USE_LOCAL_STORAGE
+        value: "false"
+      - key: DO_SPACES_KEY
+        type: SECRET
+      - key: DO_SPACES_SECRET
+        type: SECRET
 
 static_sites:
   - name: frontend
