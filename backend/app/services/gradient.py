@@ -78,7 +78,7 @@ _DEFAULT_DOMAIN = "finance"
 def _call_gradient(messages: list[dict[str, str]], max_tokens: int = 4096) -> str:
     """Call DO Gradient (OpenAI-compatible /chat/completions). Retries up to 3×."""
     endpoint = settings.do_gradient_inference_endpoint.rstrip("/")
-    url = f"{endpoint}/chat/completions"
+    url = f"{endpoint}/api/v1/chat/completions"
     headers = {
         "Authorization": f"Bearer {settings.do_gradient_api_key}",
         "Content-Type": "application/json",
