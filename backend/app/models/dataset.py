@@ -26,7 +26,10 @@ class Dataset(Base):
     column_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     credit_cost: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
     status: Mapped[DatasetStatus] = mapped_column(
-        Enum(DatasetStatus), nullable=False, default=DatasetStatus.ACTIVE
+        Enum(DatasetStatus, values_callable=lambda obj: [e.value for e in obj],
+             name="datasetstatus", create_type=False),
+        nullable=False,
+        default=DatasetStatus.ACTIVE,
     )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
